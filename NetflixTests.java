@@ -1,17 +1,11 @@
 package clase16.Tests;
 
-import clase15.Pages.SpotifyHomePage;
-import clase15.Pages.SpotifySignupPage;
-import clase16.Pages.HomePageNtflxNetflix;
 import clase16.Pages.LoginPageNtflx;
-import clase16.TestsBase.BaseTests;
-import org.checkerframework.checker.units.qual.A;
-import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
+import clase16.TestsBase.BaseTest;
 import org.testng.Assert;
 import org.testng.annotations.Test;
 
-public class NetflixTests extends BaseTests {
+public class NetflixTests extends BaseTest {
 
     private LoginPageNtflx login;
 
@@ -23,19 +17,23 @@ public class NetflixTests extends BaseTests {
 
     @Test
     public void iniciarSesionPageTest(){
-       login = homePageNetflix.iniciarSesion();
+       login = homePageNetflix.goToIniciarSesionPage();
       //  System.out.println(login.getPageTitle());
         Assert.assertEquals(login.getPageTitle(),"Netflix");
-      //  System.out.println(login.validateH1Texts());
-        Assert.assertEquals(login.validateH1Texts(),"Iniciar sesión");
+
+        String h1 = login.getAllH1();
+        System.out.println(h1);
+        Assert.assertEquals(h1,"Iniciar sesión");
     }
 
     @Test
     public void  loginToNetflixErrorTest() {
-        login = homePageNetflix.iniciarSesion();
+        login = homePageNetflix.goToIniciarSesionPage();
         login.fillLoginFields();
-        Assert.assertEquals(login.GetErrorElement(),"Escribe un correo válido.");
-        login.marcarDesmarcarCheckboxRecuerdame();
+        Assert.assertEquals(login.getErrorElement(),"Escribe un correo válido.");
+        Boolean isCheckboxSelected = login.marcarDesmarcarCajaRecuerdame();
+        System.out.println(isCheckboxSelected);
+        Assert.assertFalse(isCheckboxSelected,"El checkbox no debería estar marcado");
 
     }
 
