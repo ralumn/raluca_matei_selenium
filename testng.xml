@@ -1,0 +1,8 @@
+<suite name = "simulacro examen ">
+    <test name = "pruebas booking ">
+        <classes>
+            <class name="SimulacroExamen.Tests.PruebaBooking">
+            </class>
+        </classes>
+    </test>
+</suite>
